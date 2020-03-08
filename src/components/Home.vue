@@ -1,17 +1,17 @@
 <template>
     <div class="page">
       <div class="topnav" :class="excludeClassName">
-        <a href="//www.adophper.com" target="_blank" title="PHP+Python--PHP技术,网站开发,PHP,PHP学习,Python学习,PHP开发,人工智能,大数据服务" class="logo">H5</a>
+        <a href="" title="" class="logo">大碗游</a>
         <div>
           <div class="workstute"></div>
           <div class="worktitle"><input type="text" v-model="projectName" placeholder="请输入项目名称" /></div>
-          <a href="https://github.com/adophper/H5Tool" target="_blank" title="Git开源地址" class="usercenter">
+          <!-- <a href="https://github.com/adophper/H5Tool" target="_blank" title="Git开源地址" class="usercenter">
             <i class="iconfont icon-git"></i>
-          </a>
+          </a> -->
           <a class="publish cursor" @click="publish"><i class="iconfont icon-fabu2"></i><span>导出</span></a>
           <div class="editbtn">
             <a class="preview cursor" @click="preview"><i class="iconfont icon-yulan1"></i><span>预览</span></a>
-            <!--<a class="save cursor" @click="output"><i class="iconfont icon-msnui-save"></i><span>保存</span></a>-->
+            <!-- <a class="save cursor" @click="output"><i class="iconfont icon-msnui-save"></i><span>保存</span></a> -->
           </div>
         </div>
       </div>
@@ -28,6 +28,7 @@
       <div class="rightnav" :class="[excludeClassName, subfuncState?'closed':'']">
         <a class="closebar" @click="subfuncState=!subfuncState"></a>
         <div class="navwrap">
+          <!-- 没有 形状|表单 -->
           <a class="words" :class="{'cursor active': func=='words'}" @click="navwrap('words')"><i class="iconfont icon-xingzhuang-wenzilan"></i> <p>文字</p></a>
           <!--<a class="materials" :class="{'cursor active': func=='materials'}" @click="navwrap('materials')"><i class="iconfont icon-xingzhuang"></i> <p>形状</p></a>-->
           <a class="pictures" :class="{'cursor active': func=='pictures'}" @click="navwrap('pictures')"><i class="iconfont icon-tupian"></i> <p>图片</p></a>
@@ -855,11 +856,11 @@ export default {
 
 .topnav .logo {
   float: left;
-  width: 89px;
+  width: 130px;
   height: 24px;
   margin: 0 8%;
   color: #1bceb3;
-  font-size: 36px;
+  font-size: 30px;
   line-height: 50px;
   text-align: center;
 }
