@@ -11,6 +11,7 @@
           <a class="publish cursor" @click="publish"><i class="iconfont icon-fabu2"></i><span>导出</span></a>
           <div class="editbtn">
             <a class="preview cursor" @click="preview"><i class="iconfont icon-yulan1"></i><span>预览</span></a>
+            <a class="save cursor"><i class="iconfont icon-msnui-save"></i><span>保存</span></a>
             <!-- <a class="save cursor" @click="output"><i class="iconfont icon-msnui-save"></i><span>保存</span></a> -->
           </div>
         </div>
@@ -33,25 +34,26 @@
           <!--<a class="materials" :class="{'cursor active': func=='materials'}" @click="navwrap('materials')"><i class="iconfont icon-xingzhuang"></i> <p>形状</p></a>-->
           <a class="pictures" :class="{'cursor active': func=='pictures'}" @click="navwrap('pictures')"><i class="iconfont icon-tupian"></i> <p>图片</p></a>
           <a class="backgrounds" :class="{'cursor active': func=='backgrounds'}" @click="navwrap('backgrounds')" :exclude-class-name="excludeClassName"><i class="iconfont icon-beijing"></i> <p>背景</p></a>
-          <a class="musics" :class="{'cursor active': func=='musics'}" @click="navwrap('musics')"><i class="iconfont icon-music"></i> <p>音乐</p></a>
-          <a class="videos" :class="{'cursor active': func=='videos'}" @click="navwrap('videos')"><i class="iconfont icon-shipin1"></i> <p>视频</p></a>
+          <!-- <a class="musics" :class="{'cursor active': func=='musics'}" @click="navwrap('musics')"><i class="iconfont icon-music"></i> <p>音乐</p></a> -->
+          <!-- <a class="videos" :class="{'cursor active': func=='videos'}" @click="navwrap('videos')"><i class="iconfont icon-shipin1"></i> <p>视频</p></a> -->
           <!--<a class="forms" :class="{'cursor active': func=='forms'}" @click="navwrap('forms')"><i class="iconfont icon-zidingyibiaodan"></i> <p>表单</p></a>-->
-          <a class="actions" :class="{'cursor active': func=='actions'}" @click="navwrap('actions')"><i class="iconfont icon-video"></i> <p>互动</p></a>
+          <!-- <a class="actions" :class="{'cursor active': func=='actions'}" @click="navwrap('actions')"><i class="iconfont icon-video"></i> <p>互动</p></a> -->
         </div>
       </div>
       <pagelist :npage.sync="npage" :page-list.sync="pageList" @addPage="addPage" @setPage="setPage" @copyPage="copyPage" @deletePage="deletePage" @updatePage="updatePage"></pagelist>
 
       <div class="subfuncwrap" v-if="draggingId">
         <div class="functitle" :class="excludeClassName">
-          <a :class="{'active':subfuncname==='elewrap'}" @click="subfuncname='elewrap'">
-            <span v-if="draggingElement.type=='text'">文本</span>
-            <span v-else-if="draggingElement.type=='img'">图片</span>
-            <span v-else-if="draggingElement.type=='video'">视频</span>
+          <!-- <a :class="{'active':subfuncname==='elewrap'}" @click="subfuncname='elewrap'"> -->
+          <a @click="subfuncname='elewrap'">
+            <span class="active" v-if="draggingElement.type=='text'">文本</span>
+            <span class="active" v-else-if="draggingElement.type=='img'">图片</span>
+            <!-- <span v-else-if="draggingElement.type=='video'">视频</span>
             <span v-else-if="draggingElement.type=='tele'">拨号</span>
-            <span v-else-if="draggingElement.type=='link'">跳转</span>
+            <span v-else-if="draggingElement.type=='link'">跳转</span> -->
           </a>
-          <a :class="{'active':subfuncname==='animwrap'}" @click="subfuncname='animwrap'">动画</a>
-          <a :class="{'active':subfuncname==='layerwrap'}" @click="subfuncname='layerwrap'">图层</a>
+          <!-- <a :class="{'active':subfuncname==='animwrap'}" @click="subfuncname='animwrap'">动画</a>
+          <a :class="{'active':subfuncname==='layerwrap'}" @click="subfuncname='layerwrap'">图层</a> -->
         </div>
         <div :class="excludeClassName" v-if="subfuncname==='elewrap'">
           <subwords v-if="draggingElement.type=='text'" :id="draggingId" :init-ele="draggingElement" @setElementNode="setElementNode(arguments)" :exclude-class-name="excludeClassName"></subwords>
@@ -186,7 +188,8 @@
 
       <div class="preview-dialog" v-if="dialogVisible">
         <el-dialog :visible.sync="dialogVisible" :width="dialogWidth" custom-class="previewel">
-          <p style="text-align: center; margin-bottom: 10px;">如须帮助请联系：{{config.contactEmail}}</p>
+          <p style="text-align: center; margin-bottom: 10px;">海报预览效果</p>
+          <!-- <p style="text-align: center; margin-bottom: 10px;">如须帮助请联系：{{config.contactEmail}}</p> -->
           <preview :music="bgMusic" :page-list="pageList" :preview-state="previewState"></preview>
         </el-dialog>
       </div>
