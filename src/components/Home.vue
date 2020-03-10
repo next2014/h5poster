@@ -166,20 +166,19 @@
 
         <div class="sidebar" :class="excludeClassName">
           <div class="barwrap">
-            <!--<el-tooltip class="item finish" effect="dark" content="撤销" placement="right">
+            <!-- <el-tooltip class="item finish" effect="dark" content="撤销" placement="right">
               <a class="iconfont icon-chexiao"></a>
             </el-tooltip>
             <el-tooltip class="item finish" effect="dark" content="恢复" placement="right">
               <a class="iconfont icon-huifu"></a>
-            </el-tooltip>-->
-            <el-tooltip class="item"  effect="dark" content="播放" placement="right">
+            </el-tooltip> -->
+           <!-- <el-tooltip class="item"  effect="dark" content="播放" placement="right">
               <a class="iconfont icon-bofang" @click="play"></a>
-            </el-tooltip>
+            </el-tooltip> -->
             <el-tooltip class="item" effect="dark" content="网格" placement="right">
               <a class="iconfont icon-grid" @click="grid=!grid"></a>
             </el-tooltip>
-<!--
-            <el-tooltip class="item savework" effect="dark" content="保存" placement="right">
+            <!--<el-tooltip class="item savework" effect="dark" content="保存" placement="right">
               <a class="iconfont icon-msnui-save"></a>
             </el-tooltip>-->
           </div>
