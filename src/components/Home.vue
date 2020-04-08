@@ -1,18 +1,14 @@
 <template>
     <div class="page">
       <div class="topnav" :class="excludeClassName">
-        <a href="" title="" class="logo">大碗游</a>
+        <a href="" title="" class="logo">大碗旅游</a>
         <div>
           <div class="workstute"></div>
           <div class="worktitle"><input type="text" v-model="projectName" placeholder="请输入项目名称" /></div>
-          <!-- <a href="https://github.com/adophper/H5Tool" target="_blank" title="Git开源地址" class="usercenter">
-            <i class="iconfont icon-git"></i>
           </a> -->
           <a class="publish cursor" @click="publish"><i class="iconfont icon-fabu2"></i><span>导出</span></a>
           <div class="editbtn">
             <a class="preview cursor" @click="preview"><i class="iconfont icon-yulan1"></i><span>预览</span></a>
-            <a class="save cursor"><i class="iconfont icon-msnui-save"></i><span>保存</span></a>
-            <!-- <a class="save cursor" @click="output"><i class="iconfont icon-msnui-save"></i><span>保存</span></a> -->
           </div>
         </div>
       </div>
@@ -31,29 +27,18 @@
         <div class="navwrap">
           <!-- 没有 形状|表单 -->
           <a class="words" :class="{'cursor active': func=='words'}" @click="navwrap('words')"><i class="iconfont icon-xingzhuang-wenzilan"></i> <p>文字</p></a>
-          <!--<a class="materials" :class="{'cursor active': func=='materials'}" @click="navwrap('materials')"><i class="iconfont icon-xingzhuang"></i> <p>形状</p></a>-->
           <a class="pictures" :class="{'cursor active': func=='pictures'}" @click="navwrap('pictures')"><i class="iconfont icon-tupian"></i> <p>图片</p></a>
           <a class="backgrounds" :class="{'cursor active': func=='backgrounds'}" @click="navwrap('backgrounds')" :exclude-class-name="excludeClassName"><i class="iconfont icon-beijing"></i> <p>背景</p></a>
-          <!-- <a class="musics" :class="{'cursor active': func=='musics'}" @click="navwrap('musics')"><i class="iconfont icon-music"></i> <p>音乐</p></a> -->
-          <!-- <a class="videos" :class="{'cursor active': func=='videos'}" @click="navwrap('videos')"><i class="iconfont icon-shipin1"></i> <p>视频</p></a> -->
-          <!--<a class="forms" :class="{'cursor active': func=='forms'}" @click="navwrap('forms')"><i class="iconfont icon-zidingyibiaodan"></i> <p>表单</p></a>-->
-          <!-- <a class="actions" :class="{'cursor active': func=='actions'}" @click="navwrap('actions')"><i class="iconfont icon-video"></i> <p>互动</p></a> -->
         </div>
       </div>
       <pagelist :npage.sync="npage" :page-list.sync="pageList" @addPage="addPage" @setPage="setPage" @copyPage="copyPage" @deletePage="deletePage" @updatePage="updatePage"></pagelist>
 
       <div class="subfuncwrap" v-if="draggingId">
         <div class="functitle" :class="excludeClassName">
-          <!-- <a :class="{'active':subfuncname==='elewrap'}" @click="subfuncname='elewrap'"> -->
           <a @click="subfuncname='elewrap'">
             <span class="active" v-if="draggingElement.type=='text'">文本</span>
             <span class="active" v-else-if="draggingElement.type=='img'">图片</span>
-            <!-- <span v-else-if="draggingElement.type=='video'">视频</span>
-            <span v-else-if="draggingElement.type=='tele'">拨号</span>
-            <span v-else-if="draggingElement.type=='link'">跳转</span> -->
           </a>
-          <!-- <a :class="{'active':subfuncname==='animwrap'}" @click="subfuncname='animwrap'">动画</a>
-          <a :class="{'active':subfuncname==='layerwrap'}" @click="subfuncname='layerwrap'">图层</a> -->
         </div>
         <div :class="excludeClassName" v-if="subfuncname==='elewrap'">
           <subwords v-if="draggingElement.type=='text'" :id="draggingId" :init-ele="draggingElement" @setElementNode="setElementNode(arguments)" :exclude-class-name="excludeClassName"></subwords>
@@ -73,13 +58,15 @@
 
       <div class="workarea editor" @contextmenu.prevent="mainContextMenu">
         <div class="e-stage-mask fixed left" style="left: 0px; width: calc(50% - 160px); height: 100%;"></div>
-        <div class="e-stage-mask fixed right" style="right: 0px; width: calc(50% - 160px); height: 100%; z-index: 10;"></div>
-        <div class="e-stage-mask fixed top" style="top: 0px; margin-left: calc(50% - 160px); width: 320px; height: 20%; border-bottom: 1px dashed rgb(183, 183, 183);"></div>
-        <div class="e-stage-mask fixed bottom" style="top: calc(20% + 504px); margin-left: calc(50% - 160px); width: 320px; height: 100%; border-top: 1px dashed rgb(183, 183, 183);"></div>
+        <div class="e-stage-mask fixed right" style="right: 0px; width: calc(50% - 215px); height: 100%; z-index: 10;"></div>
+        <div class="e-stage-mask fixed top" style="top: 0px; margin-left: calc(50% - 160px); width: 375px; height: 10%; border-bottom: 1px dashed rgb(183, 183, 183);"></div>
+        <div class="e-stage-mask fixed bottom" style="top: calc(10% + 667px); margin-left: calc(50% - 160px); width: 375px; height: 100%; border-top: 1px dashed rgb(183, 183, 183);"></div>
         <div class="mainarea">
           <div class="canvas-area">
             <div class="grid-container" v-show="grid">
-              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><path d="M10,0L10,2692M20,0L20,2692M30,0L30,2692M40,0L40,2692M50,0L50,2692M60,0L60,2692M70,0L70,2692M80,0L80,2692M90,0L90,2692M100,0L100,2692M110,0L110,2692M120,0L120,2692M130,0L130,2692M140,0L140,2692M150,0L150,2692M160,0L160,2692M170,0L170,2692M180,0L180,2692M190,0L190,2692M200,0L200,2692M210,0L210,2692M220,0L220,2692M230,0L230,2692M240,0L240,2692M250,0L250,2692M260,0L260,2692M270,0L270,2692M280,0L280,2692M290,0L290,2692M300,0L300,2692M310,0L310,2692M0,10L320,10M0,20L320,20M0,30L320,30M0,40L320,40M0,50L320,50M0,60L320,60M0,70L320,70M0,80L320,80M0,90L320,90M0,100L320,100M0,110L320,110M0,120L320,120M0,130L320,130M0,140L320,140M0,150L320,150M0,160L320,160M0,170L320,170M0,180L320,180M0,190L320,190M0,200L320,200M0,210L320,210M0,220L320,220M0,230L320,230M0,240L320,240M0,250L320,250M0,260L320,260M0,270L320,270M0,280L320,280M0,290L320,290M0,300L320,300M0,310L320,310M0,320L320,320M0,330L320,330M0,340L320,340M0,350L320,350M0,360L320,360M0,370L320,370M0,380L320,380M0,390L320,390M0,400L320,400M0,410L320,410M0,420L320,420M0,430L320,430M0,440L320,440M0,450L320,450M0,460L320,460M0,470L320,470M0,480L320,480M0,490L320,490M0,500L320,500M0,510L320,510M0,520L320,520M0,530L320,530M0,540L320,540M0,550L320,550M0,560L320,560M0,570L320,570M0,580L320,580M0,590L320,590M0,600L320,600M0,610L320,610M0,620L320,620M0,630L320,630M0,640L320,640M0,650L320,650M0,660L320,660M0,670L320,670M0,680L320,680M0,690L320,690M0,700L320,700M0,710L320,710M0,720L320,720M0,730L320,730M0,740L320,740M0,750L320,750M0,760L320,760M0,770L320,770M0,780L320,780M0,790L320,790M0,800L320,800M0,810L320,810M0,820L320,820M0,830L320,830M0,840L320,840M0,850L320,850M0,860L320,860M0,870L320,870M0,880L320,880M0,890L320,890M0,900L320,900M0,910L320,910M0,920L320,920M0,930L320,930M0,940L320,940M0,950L320,950M0,960L320,960M0,970L320,970M0,980L320,980M0,990L320,990M0,1000L320,1000M0,1010L320,1010M0,1020L320,1020M0,1030L320,1030M0,1040L320,1040M0,1050L320,1050M0,1060L320,1060M0,1070L320,1070M0,1080L320,1080M0,1090L320,1090M0,1100L320,1100M0,1110L320,1110M0,1120L320,1120M0,1130L320,1130M0,1140L320,1140M0,1150L320,1150M0,1160L320,1160M0,1170L320,1170M0,1180L320,1180M0,1190L320,1190M0,1200L320,1200M0,1210L320,1210M0,1220L320,1220M0,1230L320,1230M0,1240L320,1240M0,1250L320,1250M0,1260L320,1260M0,1270L320,1270M0,1280L320,1280M0,1290L320,1290M0,1300L320,1300M0,1310L320,1310M0,1320L320,1320M0,1330L320,1330M0,1340L320,1340M0,1350L320,1350M0,1360L320,1360M0,1370L320,1370M0,1380L320,1380M0,1390L320,1390M0,1400L320,1400M0,1410L320,1410M0,1420L320,1420M0,1430L320,1430M0,1440L320,1440M0,1450L320,1450M0,1460L320,1460M0,1470L320,1470M0,1480L320,1480M0,1490L320,1490M0,1500L320,1500M0,1510L320,1510M0,1520L320,1520M0,1530L320,1530M0,1540L320,1540M0,1550L320,1550M0,1560L320,1560M0,1570L320,1570M0,1580L320,1580M0,1590L320,1590M0,1600L320,1600M0,1610L320,1610M0,1620L320,1620M0,1630L320,1630M0,1640L320,1640M0,1650L320,1650M0,1660L320,1660M0,1670L320,1670M0,1680L320,1680M0,1690L320,1690M0,1700L320,1700M0,1710L320,1710M0,1720L320,1720M0,1730L320,1730M0,1740L320,1740M0,1750L320,1750M0,1760L320,1760M0,1770L320,1770M0,1780L320,1780M0,1790L320,1790M0,1800L320,1800M0,1810L320,1810M0,1820L320,1820M0,1830L320,1830M0,1840L320,1840M0,1850L320,1850M0,1860L320,1860M0,1870L320,1870M0,1880L320,1880M0,1890L320,1890M0,1900L320,1900M0,1910L320,1910M0,1920L320,1920M0,1930L320,1930M0,1940L320,1940M0,1950L320,1950M0,1960L320,1960M0,1970L320,1970M0,1980L320,1980M0,1990L320,1990M0,2000L320,2000M0,2010L320,2010M0,2020L320,2020M0,2030L320,2030M0,2040L320,2040M0,2050L320,2050M0,2060L320,2060M0,2070L320,2070M0,2080L320,2080M0,2090L320,2090M0,2100L320,2100M0,2110L320,2110M0,2120L320,2120M0,2130L320,2130M0,2140L320,2140M0,2150L320,2150M0,2160L320,2160M0,2170L320,2170M0,2180L320,2180M0,2190L320,2190M0,2200L320,2200M0,2210L320,2210M0,2220L320,2220M0,2230L320,2230M0,2240L320,2240M0,2250L320,2250M0,2260L320,2260M0,2270L320,2270M0,2280L320,2280M0,2290L320,2290M0,2300L320,2300M0,2310L320,2310M0,2320L320,2320M0,2330L320,2330M0,2340L320,2340M0,2350L320,2350M0,2360L320,2360M0,2370L320,2370M0,2380L320,2380M0,2390L320,2390M0,2400L320,2400M0,2410L320,2410M0,2420L320,2420M0,2430L320,2430M0,2440L320,2440M0,2450L320,2450M0,2460L320,2460M0,2470L320,2470M0,2480L320,2480M0,2490L320,2490M0,2500L320,2500M0,2510L320,2510M0,2520L320,2520M0,2530L320,2530M0,2540L320,2540M0,2550L320,2550M0,2560L320,2560M0,2570L320,2570M0,2580L320,2580M0,2590L320,2590M0,2600L320,2600M0,2610L320,2610M0,2620L320,2620M0,2630L320,2630M0,2640L320,2640M0,2650L320,2650M0,2660L320,2660M0,2670L320,2670M0,2680L320,2680M0,2690L320,2690" stroke="#ccc" stroke-width="0.5" stroke-dasharray="1"></path></svg>
+              <svg width="100%" height="667" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,0L10,2692M20,0L20,2692M30,0L30,2692M40,0L40,2692M50,0L50,2692M60,0L60,2692M70,0L70,2692M80,0L80,2692M90,0L90,2692M100,0L100,2692M110,0L110,2692M120,0L120,2692M130,0L130,2692M140,0L140,2692M150,0L150,2692M160,0L160,2692M170,0L170,2692M180,0L180,2692M190,0L190,2692M200,0L200,2692M210,0L210,2692M220,0L220,2692M230,0L230,2692M240,0L240,2692M250,0L250,2692M260,0L260,2692M270,0L270,2692M280,0L280,2692M290,0L290,2692M300,0L300,2692M310,0L310,2692M0,10L320,10M0,20L320,20M0,30L320,30M0,40L320,40M0,50L320,50M0,60L320,60M0,70L320,70M0,80L320,80M0,90L320,90M0,100L320,100M0,110L320,110M0,120L320,120M0,130L320,130M0,140L320,140M0,150L320,150M0,160L320,160M0,170L320,170M0,180L320,180M0,190L320,190M0,200L320,200M0,210L320,210M0,220L320,220M0,230L320,230M0,240L320,240M0,250L320,250M0,260L320,260M0,270L320,270M0,280L320,280M0,290L320,290M0,300L320,300M0,310L320,310M0,320L320,320M0,330L320,330M0,340L320,340M0,350L320,350M0,360L320,360M0,370L320,370M0,380L320,380M0,390L320,390M0,400L320,400M0,410L320,410M0,420L320,420M0,430L320,430M0,440L320,440M0,450L320,450M0,460L320,460M0,470L320,470M0,480L320,480M0,490L320,490M0,500L320,500M0,510L320,510M0,520L320,520M0,530L320,530M0,540L320,540M0,550L320,550M0,560L320,560M0,570L320,570M0,580L320,580M0,590L320,590M0,600L320,600M0,610L320,610M0,620L320,620M0,630L320,630M0,640L320,640M0,650L320,650M0,660L320,660M0,670L320,670M0,680L320,680M0,690L320,690M0,700L320,700M0,710L320,710M0,720L320,720M0,730L320,730M0,740L320,740M0,750L320,750M0,760L320,760M0,770L320,770M0,780L320,780M0,790L320,790M0,800L320,800M0,810L320,810M0,820L320,820M0,830L320,830M0,840L320,840M0,850L320,850M0,860L320,860M0,870L320,870M0,880L320,880M0,890L320,890M0,900L320,900M0,910L320,910M0,920L320,920M0,930L320,930M0,940L320,940M0,950L320,950M0,960L320,960M0,970L320,970M0,980L320,980M0,990L320,990M0,1000L320,1000M0,1010L320,1010M0,1020L320,1020M0,1030L320,1030M0,1040L320,1040M0,1050L320,1050M0,1060L320,1060M0,1070L320,1070M0,1080L320,1080M0,1090L320,1090M0,1100L320,1100M0,1110L320,1110M0,1120L320,1120M0,1130L320,1130M0,1140L320,1140M0,1150L320,1150M0,1160L320,1160M0,1170L320,1170M0,1180L320,1180M0,1190L320,1190M0,1200L320,1200M0,1210L320,1210M0,1220L320,1220M0,1230L320,1230M0,1240L320,1240M0,1250L320,1250M0,1260L320,1260M0,1270L320,1270M0,1280L320,1280M0,1290L320,1290M0,1300L320,1300M0,1310L320,1310M0,1320L320,1320M0,1330L320,1330M0,1340L320,1340M0,1350L320,1350M0,1360L320,1360M0,1370L320,1370M0,1380L320,1380M0,1390L320,1390M0,1400L320,1400M0,1410L320,1410M0,1420L320,1420M0,1430L320,1430M0,1440L320,1440M0,1450L320,1450M0,1460L320,1460M0,1470L320,1470M0,1480L320,1480M0,1490L320,1490M0,1500L320,1500M0,1510L320,1510M0,1520L320,1520M0,1530L320,1530M0,1540L320,1540M0,1550L320,1550M0,1560L320,1560M0,1570L320,1570M0,1580L320,1580M0,1590L320,1590M0,1600L320,1600M0,1610L320,1610M0,1620L320,1620M0,1630L320,1630M0,1640L320,1640M0,1650L320,1650M0,1660L320,1660M0,1670L320,1670M0,1680L320,1680M0,1690L320,1690M0,1700L320,1700M0,1710L320,1710M0,1720L320,1720M0,1730L320,1730M0,1740L320,1740M0,1750L320,1750M0,1760L320,1760M0,1770L320,1770M0,1780L320,1780M0,1790L320,1790M0,1800L320,1800M0,1810L320,1810M0,1820L320,1820M0,1830L320,1830M0,1840L320,1840M0,1850L320,1850M0,1860L320,1860M0,1870L320,1870M0,1880L320,1880M0,1890L320,1890M0,1900L320,1900M0,1910L320,1910M0,1920L320,1920M0,1930L320,1930M0,1940L320,1940M0,1950L320,1950M0,1960L320,1960M0,1970L320,1970M0,1980L320,1980M0,1990L320,1990M0,2000L320,2000M0,2010L320,2010M0,2020L320,2020M0,2030L320,2030M0,2040L320,2040M0,2050L320,2050M0,2060L320,2060M0,2070L320,2070M0,2080L320,2080M0,2090L320,2090M0,2100L320,2100M0,2110L320,2110M0,2120L320,2120M0,2130L320,2130M0,2140L320,2140M0,2150L320,2150M0,2160L320,2160M0,2170L320,2170M0,2180L320,2180M0,2190L320,2190M0,2200L320,2200M0,2210L320,2210M0,2220L320,2220M0,2230L320,2230M0,2240L320,2240M0,2250L320,2250M0,2260L320,2260M0,2270L320,2270M0,2280L320,2280M0,2290L320,2290M0,2300L320,2300M0,2310L320,2310M0,2320L320,2320M0,2330L320,2330M0,2340L320,2340M0,2350L320,2350M0,2360L320,2360M0,2370L320,2370M0,2380L320,2380M0,2390L320,2390M0,2400L320,2400M0,2410L320,2410M0,2420L320,2420M0,2430L320,2430M0,2440L320,2440M0,2450L320,2450M0,2460L320,2460M0,2470L320,2470M0,2480L320,2480M0,2490L320,2490M0,2500L320,2500M0,2510L320,2510M0,2520L320,2520M0,2530L320,2530M0,2540L320,2540M0,2550L320,2550M0,2560L320,2560M0,2570L320,2570M0,2580L320,2580M0,2590L320,2590M0,2600L320,2600M0,2610L320,2610M0,2620L320,2620M0,2630L320,2630M0,2640L320,2640M0,2650L320,2650M0,2660L320,2660M0,2670L320,2670M0,2680L320,2680M0,2690L320,2690" stroke="#ccc" stroke-width="0.5" stroke-dasharray="1"></path>
+              </svg>
             </div>
           </div>
           <div class="bgCanvas" :style="{background: pageList[npage]['backgroundImage']==''?(pageList[npage]['backgroundColor']==''?'rgba(255,255,255)':pageList[npage]['backgroundColor']):'url('+pageList[npage]['backgroundImage']+') left top / 100% 100% no-repeat'}">
@@ -166,21 +153,9 @@
 
         <div class="sidebar" :class="excludeClassName">
           <div class="barwrap">
-            <!-- <el-tooltip class="item finish" effect="dark" content="撤销" placement="right">
-              <a class="iconfont icon-chexiao"></a>
-            </el-tooltip>
-            <el-tooltip class="item finish" effect="dark" content="恢复" placement="right">
-              <a class="iconfont icon-huifu"></a>
-            </el-tooltip> -->
-           <!-- <el-tooltip class="item"  effect="dark" content="播放" placement="right">
-              <a class="iconfont icon-bofang" @click="play"></a>
-            </el-tooltip> -->
             <el-tooltip class="item" effect="dark" content="网格" placement="right">
               <a class="iconfont icon-grid" @click="grid=!grid"></a>
             </el-tooltip>
-            <!--<el-tooltip class="item savework" effect="dark" content="保存" placement="right">
-              <a class="iconfont icon-msnui-save"></a>
-            </el-tooltip>-->
           </div>
         </div>
       </div>
@@ -188,15 +163,7 @@
       <div class="preview-dialog" v-if="dialogVisible">
         <el-dialog :visible.sync="dialogVisible" :width="dialogWidth" custom-class="previewel">
           <p style="text-align: center; margin-bottom: 10px;">海报预览效果</p>
-          <!-- <p style="text-align: center; margin-bottom: 10px;">如须帮助请联系：{{config.contactEmail}}</p> -->
           <preview :music="bgMusic" :page-list="pageList" :preview-state="previewState"></preview>
-        </el-dialog>
-      </div>
-
-      <div class="publish-dialog" v-if="publishState">
-        <el-dialog :visible.sync="publishState" :width="dialogWidth" custom-class="previewel">
-          <p style="margin-bottom: 10px; line-height: 1.4;">请自行将HTML内容复制保存并上传至自有服务器，本站不提供免费保存文件服务。如须帮助请联系：{{config.contactEmail}}</p>
-          <el-input type="textarea" :rows="15" v-model="publishContent"></el-input>
         </el-dialog>
       </div>
     </div>
@@ -425,8 +392,8 @@ export default {
         '<head>\n' +
         '  <meta charset="UTF-8">\n' +
         '  <title>'+this.projectName+'</title>\n' +
-        '  <meta name="keywords" content="adophper,adophper.com,免费H5页面制作,微信h5页面,微场景制作,电子邀请函,海报模板,相册设计,H5素材免ps,h5页面制作工具,微信场景制作,移动营销,邀请函模板,贺卡制作" />\n' +
-        '  <meta name="description" content="adophper,adophper.com,免费H5页面制作,简单高效强大的H5页面、微信海报制作平台。海量h5模板、海报随心挑选，微信营销推广场景制作平台,企业宣传、音乐相册、电子贺卡、邀请函、微杂志等一键生成H5页面。"/>' +
+        '  <meta name="keywords" content="" />\n' +
+        '  <meta name="description" content=""/>' +
         '  <meta name=\'viewport\' content=\'width=device-width, initial-scale=1.0, maximum-scale=1.0\'/>\n' +
         '  <link href="https://cdn.bootcss.com/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet">\n' +
         '  <link href="//at.alicdn.com/t/font_1588163_zm7dlt6lf5.css" rel="stylesheet">\n' +
@@ -441,7 +408,7 @@ export default {
         '        <div class="swiper-wrapper">\n';
       for (var index in this.pageList) {
         var page = this.pageList[index];
-        html += '   <div class="swiper-slide" style="background: ' + (page.backgroundImage == '' ? (page.backgroundColor == '' ? 'rgb(255, 255, 255)' : page.backgroundColor) : 'url(' + page.backgroundImage + ') left top / 100% 100% no-repeat') + ';">\n' +
+        html += '<div class="swiper-slide" style="background: ' + (page.backgroundImage == '' ? (page.backgroundColor == '' ? 'rgb(255, 255, 255)' : page.backgroundColor) : 'url(' + page.backgroundImage + ') left top / 100% 100% no-repeat') + ';">\n' +
           '              <div class="elementCanvas" style="transform-origin: 0 0;">\n';
         if (page['layer'].length > 0) {
           for (var key in page['layer']) {
@@ -469,7 +436,7 @@ export default {
                 '                    </div>\n' +
                 '                  </div>\n';
             }else if (element.type == 'video') {
-              html += '                  <div class="item_wrapper resize" style="position: absolute; overflow-wrap: break-word; width: '+element.width+'px; height: '+element.height+'px; top: '+element.y+'px; left: '+element.x+'px; transform: rotateZ('+element.rotate+'deg); opacity: '+((100 - element.opacity)/100)+'">\n' +
+              html += '<div class="item_wrapper resize" style="position: absolute; overflow-wrap: break-word; width: '+element.width+'px; height: '+element.height+'px; top: '+element.y+'px; left: '+element.x+'px; transform: rotateZ('+element.rotate+'deg); opacity: '+((100 - element.opacity)/100)+'">\n' +
                 '                    <div class="content '+(element.ani!=''?'ani':'')+'" swiper-animate-effect="'+element.ani+'" swiper-animate-duration="'+element.duration+'s" swiper-animate-delay="'+element.delay+'s" >\n' +
                 '                      <div class="video-element">\n' +
                 '                        <div class="wrapper resize" style="box-shadow: black 0px 0px 0px; overflow-wrap: break-word; width: '+element.width+'px; height: '+element.height+'px; line-height: '+element.lineHeight+'; font-family: '+element.fontFamily+'; border-radius: '+element.borderRadius+'px; font-style: '+element.fontStyle+'; font-weight: '+(element.fontBold?'bold':'normal')+'; text-align: '+element.textAlign+'; color: '+element.color+'; font-size: '+element.fontSize+'px; text-decoration: '+(element.textDecoration?'underline':'none')+'">\n' +
@@ -484,7 +451,7 @@ export default {
                 '                    </div>\n' +
                 '                  </div>\n';
             }else if (element.type == 'tele') {
-              html += '                  <div class="item_wrapper resize fontresize '+(element.ani!=''?('ani '+element.ani):'')+'" swiper-animate-effect="'+element.ani+'" swiper-animate-duration="'+element.duration+'s" swiper-animate-delay="'+element.delay+'s" style="position: absolute; overflow-wrap: break-word; width: '+element.width+'px; height: '+element.height+'px; top: '+element.y+'px; left: '+element.x+'px; transform: rotateZ('+element.rotate+'deg); opacity: '+((100 - element.opacity)/100)+';border-radius: '+element.borderRadius+'px; background-color: '+element.backgroundColor+';">\n' +
+              html += '<div class="item_wrapper resize fontresize '+(element.ani!=''?('ani '+element.ani):'')+'" swiper-animate-effect="'+element.ani+'" swiper-animate-duration="'+element.duration+'s" swiper-animate-delay="'+element.delay+'s" style="position: absolute; overflow-wrap: break-word; width: '+element.width+'px; height: '+element.height+'px; top: '+element.y+'px; left: '+element.x+'px; transform: rotateZ('+element.rotate+'deg); opacity: '+((100 - element.opacity)/100)+';border-radius: '+element.borderRadius+'px; background-color: '+element.backgroundColor+';">\n' +
                 '                    <div class="content">\n' +
                 '                      <div class="tele-element">\n' +
                 '                        <div class="wrapper resize fontresize" style="box-shadow: black 0px 0px 0px; overflow-wrap: break-word; width: '+element.width+'px; height: '+element.height+'px; line-height: '+element.lineHeight+'; font-family: '+element.fontFamily+'; font-style: '+element.fontStyle+'; font-weight: '+(element.fontBold?'bold':'normal')+'; text-align: '+element.textAlign+'; color: '+element.color+'; font-size: '+element.fontSize+'px; text-decoration: '+(element.textDecoration?'underline':'none')+'">\n' +
@@ -498,7 +465,7 @@ export default {
                 '                    </div>\n' +
                 '                  </div>\n';
             }else if (element.type == 'link') {
-              html += '                  <div class="item_wrapper resize fontresize '+(element.ani!=''?('ani '+element.ani):'')+'" swiper-animate-effect="'+element.ani+'" swiper-animate-duration="'+element.duration+'s" swiper-animate-delay="'+element.delay+'s" style="overflow-wrap: break-word; font-family: '+element.fontFamily+'; border-radius: '+element.borderRadius+'px; text-align: '+element.textAlign+'; width: '+element.width+'px; height: '+element.height+'px; top: '+element.y+'px; left: '+element.x+'px; line-height: '+element.height+'px; color: '+element.color+'; background-color: '+element.backgroundColor+';">\n' +
+              html += '<div class="item_wrapper resize fontresize '+(element.ani!=''?('ani '+element.ani):'')+'" swiper-animate-effect="'+element.ani+'" swiper-animate-duration="'+element.duration+'s" swiper-animate-delay="'+element.delay+'s" style="overflow-wrap: break-word; font-family: '+element.fontFamily+'; border-radius: '+element.borderRadius+'px; text-align: '+element.textAlign+'; width: '+element.width+'px; height: '+element.height+'px; top: '+element.y+'px; left: '+element.x+'px; line-height: '+element.height+'px; color: '+element.color+'; background-color: '+element.backgroundColor+';">\n' +
                 '                    <div class="content">\n' +
                 '                      <div class="link-element">\n' +
                 '                        <div class="wrapper resize fontresize" style="box-shadow: black 0px 0px 0px; overflow-wrap: break-word; width: '+element.width+'px; height: '+element.height+'px; line-height: '+element.lineHeight+'; font-family: '+element.fontFamily+'; font-style: '+element.fontStyle+'; font-weight: '+(element.fontBold?'bold':'normal')+'; text-align: '+element.textAlign+'; color: '+element.color+'; font-size: '+element.fontSize+'px; text-decoration: '+(element.textDecoration?'underline':'none')+'">\n' +
@@ -516,23 +483,23 @@ export default {
         }
         html += '</div></div>\n';
       }
-        html +=  '        </div>\n' +
-          '      </div>\n';
+        html +=  '</div>\n' +
+          '</div>\n';
       if (this.pageList.length > 1) {
         html += '<span class="arrow resize"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAASCAYAAAA6yNxSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxOTEyQUZGMzU3NTIxMUU4QjNEOUQ0MzlDMDc3MDgyRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxOTEyQUZGNDU3NTIxMUU4QjNEOUQ0MzlDMDc3MDgyRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjE5MTJBRkYxNTc1MjExRThCM0Q5RDQzOUMwNzcwODJEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjE5MTJBRkYyNTc1MjExRThCM0Q5RDQzOUMwNzcwODJEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+yXkN0wAAAVlJREFUeNpi+P//PwMFmAOIS4CYjVwzKLGcG4j3/IeATVDH0M0B/EB8+D8q2A3EXPRwgDAQn/6PHRyGOo5mDhAH4ktolv5E44McJ0QLB8gA8Q00y/YDsRwQn0ATvwh1LNUcoAjE99Es2Y4U57xAfABN/gbU0RQ7QAOIn6AZvh5L1gM5ZgeauntQx5PtAH0gfoFm6FIgZsGhHuSoDWjqH0M9QbIDTIH4LZphs4GYmYCjQY5bhqYP5Ak9UhxgA8Qf0QyZBMSMRKYZkCPnoOkHecaEGAe4AvFXNM3tZJQXIMdORjPnI9RzOB3gC8Q/0DTVUFhfdKCZB/KcCzYHhKEVKv+AuIhCy2G4Bs0R36GehTsgHoj/ICn4C8TpVLIchougnkIuQcNAEkxItdp/qENiqWw5DGdAPQcDG5Hr9S1QV4XQyHIYjoV6chWo3EAvRMxpbDkMW8LKE4AAAwB5ZDwmZZQfSgAAAABJRU5ErkJggg==" /></span>\n'
       }
       if (this.bgMusic.url != '') {
         html += '<div id="audio_btn" class="off" onclick="playMusic()"> <div id="yinfu"> </div> <audio autoplay preload loop src="'+this.bgMusic.url+'" id="media"></audio></div>';
       }
-      html += '    </div>\n' +
+      html += '</div>\n' +
       '  </div>';
       html += '\n'+
-' <script>\n'+
-'function isMobile(){var flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);return flag;}function swiperAnimateCache(){for(allBoxes=window.document.documentElement.querySelectorAll(".ani"),i=0;i<allBoxes.length;i++)allBoxes[i].attributes["style"]?allBoxes[i].setAttribute("swiper-animate-style-cache",allBoxes[i].attributes["style"].value):allBoxes[i].setAttribute("swiper-animate-style-cache"," "),allBoxes[i].style.visibility="hidden"}function swiperAnimate(a){clearSwiperAnimate();var b=a.slides[a.activeIndex].querySelectorAll(".ani");for(i=0;i<b.length;i++)b[i].style.visibility="visible",effect=b[i].attributes["swiper-animate-effect"]?b[i].attributes["swiper-animate-effect"].value:"",b[i].className=b[i].className+"  "+effect+" "+"animated",style=b[i].attributes["style"].value,duration=b[i].attributes["swiper-animate-duration"]?b[i].attributes["swiper-animate-duration"].value:"",duration&&(style=style+"animation-duration:"+duration+";-webkit-animation-duration:"+duration+";"),delay=b[i].attributes["swiper-animate-delay"]?b[i].attributes["swiper-animate-delay"].value:"",delay&&(style=style+"animation-delay:"+delay+";-webkit-animation-delay:"+delay+";"),b[i].setAttribute("style",style)}function clearSwiperAnimate(){for(allBoxes=window.document.documentElement.querySelectorAll(".ani"),i=0;i<allBoxes.length;i++)allBoxes[i].attributes["swiper-animate-style-cache"]&&allBoxes[i].setAttribute("style",allBoxes[i].attributes["swiper-animate-style-cache"].value),allBoxes[i].style.visibility="hidden",allBoxes[i].className=allBoxes[i].className.replace("animated"," "),allBoxes[i].attributes["swiper-animate-effect"]&&(effect=allBoxes[i].attributes["swiper-animate-effect"].value,allBoxes[i].className=allBoxes[i].className.replace(effect," "))};if(isMobile()){var scaleW=window.innerWidth/640;var scaleH=window.innerHeight/1008;}else{var scaleW=1;var scaleH=1;}var resizes = document.querySelectorAll(\'.resize\');for (var j=0; j<resizes.length; j++) {if(resizes[j].tagName==\'VIDEO\'){resizes[j].width=parseInt(resizes[j].width)*scaleW;resizes[j].height=parseInt(resizes[j].height)*scaleH;}else{resizes[j].style.width=parseInt(resizes[j].style.width)*scaleW+\'px\';resizes[j].style.height=parseInt(resizes[j].style.height)*scaleH+\'px\';resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+\'px\';resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+\'px\';if(resizes[j].className.indexOf(\'lineheight\')){resizes[j].style.lineHeight=resizes[j].style.height+\'px\';}if(resizes[j].className.indexOf(\'letterspacing\')&&resizes[j].style.letterSpacing!=\'\'){resizes[j].style.letterSpacing=parseInt(resizes[j].style.letterSpacing)*scaleW+\'px\';}}}var fontsizes = document.querySelectorAll(\'.fontresize\');for (var i = 0; i < fontsizes.length; i++) {fontsizes[i].style.borderRadius = parseInt(fontsizes[i].style.borderRadius)*scaleW+\'px\';fontsizes[i].style.fontSize = parseInt(fontsizes[i].style.fontSize)*scaleW+\'px\';fontsizes[i].style.borderWidth = parseInt(fontsizes[i].style.borderWidth)*scaleW+\'px\';};var swiper = new Swiper(\'.swiper-container\', {initialSlide: 0, direction : \'vertical\', observer: true,observeParents: true,onInit: function(swiper){swiperAnimateCache(swiper);swiperAnimate(swiper);}, onSlideChangeEnd: function(swiper){swiperAnimate(swiper);}, onTransitionEnd: function(swiper){swiperAnimate(swiper);}, watchSlidesProgress: true,onProgress: function(swiper){for (var i = 0; i < swiper.slides.length; i++){var slide = swiper.slides[i];var progress = slide.progress;var translate = progress*swiper.height/4;scale = 1 - Math.min(Math.abs(progress * 0.5), 1);var opacity = 1 - Math.min(Math.abs(progress/2),0.5);slide.style.opacity = opacity;es = slide.style;es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = \'translate3d(0,\'+translate+\'px,-\'+translate+\'px) scaleY(\' + scale + \')\';}},onSetTransition: function(swiper, speed) {for (var i = 0; i < swiper.slides.length; i++){es = swiper.slides[i].style;es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = speed + \'ms\';}}});function playVideo(id) {var e = document.getElementById(\'video-\' + id), i = document.getElementById(\'render_\' + id);e.paused ? (e.play(), i.style.visibility = "hidden") : e.pause && (e.currentTime = 0, e.pause(), i.style.visibility = "visible")}function playMusic() {var audio_btn = document.getElementById(\'audio_btn\');if (audio_btn == null) return;var yinfu = document.getElementById(\'yinfu\');var media = document.getElementById(\'media\');if (media.paused) {media.play();audio_btn.className = \'play_yinfu\';yinfu.className = \'rotate\';}else{media.pause();audio_btn.className = \'off\';yinfu.className = \'\';}}playMusic(); <\/script>\n<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?07c1366723449548a1271f777afe1ccd";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);\n})();<\/script>\n'+
-' <script>\n//请在此添加分享脚本\n' +
-'<\/script>\n'+
-' </body>\n'+
-'</html>\n';
+		' <script>\n'+
+		'function isMobile(){var flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);return flag;}function swiperAnimateCache(){for(allBoxes=window.document.documentElement.querySelectorAll(".ani"),i=0;i<allBoxes.length;i++)allBoxes[i].attributes["style"]?allBoxes[i].setAttribute("swiper-animate-style-cache",allBoxes[i].attributes["style"].value):allBoxes[i].setAttribute("swiper-animate-style-cache"," "),allBoxes[i].style.visibility="hidden"}function swiperAnimate(a){clearSwiperAnimate();var b=a.slides[a.activeIndex].querySelectorAll(".ani");for(i=0;i<b.length;i++)b[i].style.visibility="visible",effect=b[i].attributes["swiper-animate-effect"]?b[i].attributes["swiper-animate-effect"].value:"",b[i].className=b[i].className+"  "+effect+" "+"animated",style=b[i].attributes["style"].value,duration=b[i].attributes["swiper-animate-duration"]?b[i].attributes["swiper-animate-duration"].value:"",duration&&(style=style+"animation-duration:"+duration+";-webkit-animation-duration:"+duration+";"),delay=b[i].attributes["swiper-animate-delay"]?b[i].attributes["swiper-animate-delay"].value:"",delay&&(style=style+"animation-delay:"+delay+";-webkit-animation-delay:"+delay+";"),b[i].setAttribute("style",style)}function clearSwiperAnimate(){for(allBoxes=window.document.documentElement.querySelectorAll(".ani"),i=0;i<allBoxes.length;i++)allBoxes[i].attributes["swiper-animate-style-cache"]&&allBoxes[i].setAttribute("style",allBoxes[i].attributes["swiper-animate-style-cache"].value),allBoxes[i].style.visibility="hidden",allBoxes[i].className=allBoxes[i].className.replace("animated"," "),allBoxes[i].attributes["swiper-animate-effect"]&&(effect=allBoxes[i].attributes["swiper-animate-effect"].value,allBoxes[i].className=allBoxes[i].className.replace(effect," "))};if(isMobile()){var scaleW=window.innerWidth/640;var scaleH=window.innerHeight/1008;}else{var scaleW=1;var scaleH=1;}var resizes = document.querySelectorAll(\'.resize\');for (var j=0; j<resizes.length; j++) {if(resizes[j].tagName==\'VIDEO\'){resizes[j].width=parseInt(resizes[j].width)*scaleW;resizes[j].height=parseInt(resizes[j].height)*scaleH;}else{resizes[j].style.width=parseInt(resizes[j].style.width)*scaleW+\'px\';resizes[j].style.height=parseInt(resizes[j].style.height)*scaleH+\'px\';resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+\'px\';resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+\'px\';if(resizes[j].className.indexOf(\'lineheight\')){resizes[j].style.lineHeight=resizes[j].style.height+\'px\';}if(resizes[j].className.indexOf(\'letterspacing\')&&resizes[j].style.letterSpacing!=\'\'){resizes[j].style.letterSpacing=parseInt(resizes[j].style.letterSpacing)*scaleW+\'px\';}}}var fontsizes = document.querySelectorAll(\'.fontresize\');for (var i = 0; i < fontsizes.length; i++) {fontsizes[i].style.borderRadius = parseInt(fontsizes[i].style.borderRadius)*scaleW+\'px\';fontsizes[i].style.fontSize = parseInt(fontsizes[i].style.fontSize)*scaleW+\'px\';fontsizes[i].style.borderWidth = parseInt(fontsizes[i].style.borderWidth)*scaleW+\'px\';};var swiper = new Swiper(\'.swiper-container\', {initialSlide: 0, direction : \'vertical\', observer: true,observeParents: true,onInit: function(swiper){swiperAnimateCache(swiper);swiperAnimate(swiper);}, onSlideChangeEnd: function(swiper){swiperAnimate(swiper);}, onTransitionEnd: function(swiper){swiperAnimate(swiper);}, watchSlidesProgress: true,onProgress: function(swiper){for (var i = 0; i < swiper.slides.length; i++){var slide = swiper.slides[i];var progress = slide.progress;var translate = progress*swiper.height/4;scale = 1 - Math.min(Math.abs(progress * 0.5), 1);var opacity = 1 - Math.min(Math.abs(progress/2),0.5);slide.style.opacity = opacity;es = slide.style;es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = \'translate3d(0,\'+translate+\'px,-\'+translate+\'px) scaleY(\' + scale + \')\';}},onSetTransition: function(swiper, speed) {for (var i = 0; i < swiper.slides.length; i++){es = swiper.slides[i].style;es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = speed + \'ms\';}}});function playVideo(id) {var e = document.getElementById(\'video-\' + id), i = document.getElementById(\'render_\' + id);e.paused ? (e.play(), i.style.visibility = "hidden") : e.pause && (e.currentTime = 0, e.pause(), i.style.visibility = "visible")}function playMusic() {var audio_btn = document.getElementById(\'audio_btn\');if (audio_btn == null) return;var yinfu = document.getElementById(\'yinfu\');var media = document.getElementById(\'media\');if (media.paused) {media.play();audio_btn.className = \'play_yinfu\';yinfu.className = \'rotate\';}else{media.pause();audio_btn.className = \'off\';yinfu.className = \'\';}}playMusic(); <\/script>\n<script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?07c1366723449548a1271f777afe1ccd";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);\n})();<\/script>\n'+
+		' <script>\n//请在此添加分享脚本\n' +
+		'<\/script>\n'+
+		' </body>\n'+
+		'</html>\n';
       this.publishContent = html;
     },
     addElement(data) {
@@ -859,9 +826,9 @@ export default {
 .topnav .logo {
   float: left;
   width: 130px;
-  height: 24px;
+  height: auto;
   margin: 0 8%;
-  color: #1bceb3;
+  color: #FFFFFF;
   font-size: 30px;
   line-height: 50px;
   text-align: center;
@@ -905,7 +872,7 @@ export default {
   width: 280px;
   height: 30px;
   top: 10px;
-  left: 50%;
+  left: 52%;
   margin-left: -140px;
   border-radius: 4px;
   background: #303132
@@ -1102,9 +1069,9 @@ export default {
 }
 .mainarea {
   position: absolute;
-  width: 320px;
-  height: 504px;
-  top: 20%;
+  width: 375px;
+  height: 667px;
+  top: 10%;
   left: 50%;
   margin-left: -160px;
 }
@@ -1202,10 +1169,10 @@ export default {
 }
 .sidebar {
   width: 40px;
-  height: 504px;
+  height: 667px;
   position: absolute;
-  top: 20%;
-  left: 50%;
+  top: 10%;
+  left: 53%;
   margin-left: 200px;
   background: #313233;
   z-index: 11;
@@ -1262,18 +1229,18 @@ export default {
 
 .e-stage-mask.fixed.left:after {
   content: "";
-  height: 504px;
+  height: 667px;
   right: 0;
-  top: 20%;
+  top: 10%;
   position: absolute;
   border-right: 1px dashed #b7b7b7;
 }
 
 .e-stage-mask.fixed.right:after {
   content: "";
-  height: 504px;
+  height: 667px;
   left: 0;
-  top: 20%;
+  top: 10%;
   position: absolute;
   border-left: 1px dashed #b7b7b7;
 }
@@ -1302,11 +1269,11 @@ a, a:hover {
   }
 
   .e-stage-mask.fixed.top {
-    height: 15% !important
+    height: 5% !important
   }
 
   .e-stage-mask.fixed.bottom {
-    top: calc(15% + 504px) !important
+    top: calc(15% + 667px) !important
   }
 }
 
@@ -1320,7 +1287,7 @@ a, a:hover {
   }
 
   .e-stage-mask.fixed.bottom {
-    top: calc(5% + 504px) !important
+    top: calc(5% + 667px) !important
   }
 }
 .video-element .video-render {
@@ -1389,5 +1356,8 @@ a, a:hover {
   .rightnav .closebar,.subfuncwrap .closebar {
     display: block;
   }
+}
+.vue-edit-area{
+   cursor: move;
 }
 </style>
